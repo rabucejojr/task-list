@@ -3,7 +3,7 @@
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Task;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 
 // redirect if route not exists
 Route::fallback(function () {
