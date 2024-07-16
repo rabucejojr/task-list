@@ -1,50 +1,27 @@
 <?php
 
-use Illuminate\Http\Response;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
-use \App\Models\Task;
-use Illuminate\Http\Request;
 
 // redirect if route not exists
 Route::fallback(function () {
     return 'Page not found';
 });
 
-Route::get('/', function () {
-    return redirect()->route("tasks.index");
-});
-
-Route::view('/tasks/create', 'create')->name('tasks.create');
-
-//display tasks per id
-Route::get('/tasks/{id}', function ($id) {
-    return view('show', ['task' => Task::findOrFail($id)]);
-})->name('tasks.show');
-
-
-// display all tasks
-Route::get('/tasks', function () {
-    $tasks = Task::latest()->get();
-    return view('index', [
-        'tasks' => $tasks
-    ]);
+//show index page
+Route::get('/', function(){
+    return redirect()->route('tasks.show');
 })->name('tasks.index');
 
-Route::post('/tasks', function (Request $request) {
-    $data = $request->validate([
-        'title' => 'required | max:255',
-        'description' => 'required',
-        'long_description' => 'required'
-    ]);
+// display all tasks
+Route::get('/tasks', [TaskController::class, 'show'])->name('tasks.show');
 
-    $task = new Task;
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    $task->save();
+// create/add task
+Route::view('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 
-    return redirect()->route('tasks.show', ['id' => $task->id]);
-    // dd('we have react the store method');
+//display tasks per id
+Route::get('/tasks/{id}', [TaskController::class, 'showPerId'])->name('tasks.showPerId');
 
-})->name('tasks.store');
 
+//save tasks
+Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
