@@ -16,5 +16,6 @@
             <label for="long_description">Long Description</label>
             <textarea type="text" name="long_description" id="long_description" rows="5"></textarea>
         </div>
+        <button>Add Task</button>
     </form>
 @endsection
