@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use Illuminate\Http\Request;
 use \App\Models\Task;
 
@@ -32,13 +33,9 @@ class TaskController extends Controller
     }
 
     //store tasks
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'long_description' => 'required'
-        ]);
+        $data = $request->validated();
         $task = new Task();
         $task->title = $data['title'];
         $task->description = $data['description'];
@@ -50,24 +47,20 @@ class TaskController extends Controller
     //edit task
     public function edit($id)
     {
-        return view('edit',[
-            'task'=> Task::findOrFail($id)
+        return view('edit', [
+            'task' => Task::findOrFail($id)
         ]);
     }
 
     //update task
-    public function update($id, Request $request)
+    public function update($id, TaskRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'long_description' => 'required'
-        ]);
+        $data = $request->validated();
         $task = Task::findOrFail($id);
         $task->title = $data['title'];
         $task->description = $data['description'];
         $task->long_description = $data['long_description'];
         $task->save();
-        return redirect()->route('tasks.show', ['task' => $task->id])->with('success','Task updated successfully!');
+        return redirect()->route('tasks.show', ['task' => $task->id])->with('success', 'Task updated successfully!');
     }
 }
