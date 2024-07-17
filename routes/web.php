@@ -17,8 +17,13 @@ Route::get('/tasks/{id}/edit', function () {
     return view('edit');
 })->name('tasks.edit');
 
+
+
 //edit task
-Route::put('/tasks/{id}', [TaskController::class, 'edit'])->name('tasks.update');
+Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+
+//update task
+Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update');
 
 // display all tasks
 Route::get('/tasks', [TaskController::class, 'show'])->name('tasks.show');

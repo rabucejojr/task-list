@@ -29,7 +29,6 @@ class TaskController extends Controller
         return view('show', [
             'task' => $task
         ]);
-        // dd('show per id');
     }
 
     //store tasks
@@ -45,11 +44,19 @@ class TaskController extends Controller
         $task->description = $data['description'];
         $task->long_description = $data['long_description'];
         $task->save();
-        return redirect()->route('tasks.show', ['id' => $task->id]);
+        return redirect()->route('tasks.show', ['task' => $task->id]);
     }
 
     //edit task
-    public function edit($id, Request $request)
+    public function edit($id)
+    {
+        return view('edit',[
+            'task'=> Task::findOrFail($id)
+        ]);
+    }
+
+    //update task
+    public function update($id, Request $request)
     {
         $data = $request->validate([
             'title' => 'required|max:255',
@@ -61,6 +68,6 @@ class TaskController extends Controller
         $task->description = $data['description'];
         $task->long_description = $data['long_description'];
         $task->save();
-        return redirect()->route('tasks.show', ['id' => $task->id])->with('success','Task updated successfully!');
+        return redirect()->route('tasks.show', ['task' => $task->id])->with('success','Task updated successfully!');
     }
 }
