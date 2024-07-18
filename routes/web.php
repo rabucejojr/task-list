@@ -30,3 +30,6 @@ Route::get('/tasks/{id}', [TaskController::class, 'showPerId'])->name('tasks.sho
 
 //save tasks
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+
+//delete task
+Route::delete('/tasks/{id}', [TaskController::class, 'delete'])->name('tasks.destroy');

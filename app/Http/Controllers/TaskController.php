@@ -63,4 +63,18 @@ class TaskController extends Controller
         $task->save();
         return redirect()->route('tasks.show', ['task' => $task->id])->with('success', 'Task updated successfully!');
     }
+
+    //delete task
+    public function delete(Task $task, $id)
+    {
+        // dd('delete function');
+        $task = Task::find($id);
+        if (!$task) {
+            return response()->json(['message' => 'Task not found']);
+        } else {
+            $task->delete();
+        }
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
+    }
 }
