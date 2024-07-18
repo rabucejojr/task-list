@@ -79,8 +79,9 @@ class TaskController extends Controller
     }
 
     //toggle complete
-    public function completed(Task $task){
+    public function completed(Task $task)
+    {
         $task->toggleComplete();
-        return redirect()->back()->with('success','Task completed!');
+        return redirect()->back()->with('success', 'Task completed!');
     }
 }
