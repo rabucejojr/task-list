@@ -17,7 +17,7 @@ class TaskController extends Controller
     //show all tasks
     public function show()
     {
-        $tasks = Task::latest()->get();
+        $tasks = Task::paginate();
         return view('index', [
             'tasks' => $tasks
         ]);
