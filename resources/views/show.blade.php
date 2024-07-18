@@ -9,6 +9,20 @@
     <p>{{ $task->updated_at }}</p>
 
     <div>
+        <a href="{{route('tasks.edit',['id'=>$task->id])}}">Edit</a>
+    </div>
+
+    <div>
+        <form action="{{route('tasks.toggle-complete',['id'=>$task])}}">
+            @csrf
+            @method('PUT')
+            <button type="submit">
+                Mark as {{{$task->completed ? 'not completed' : 'completed'}}}
+            </button>
+        </form>
+    </div>
+
+    <div>
         <form action="{{route('tasks.destroy',['id'=> $task->id])}}" method="post">
             @csrf
             @method('DELETE')
