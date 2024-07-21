@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // redirect if route not exists
 Route::fallback(function () {
-    return 'Page not found';
+    return view('404', [], 404);
 });
 
 //show index page

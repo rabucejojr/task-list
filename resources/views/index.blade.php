@@ -2,7 +2,7 @@
 @section('title', 'Task List')
 @section('content')
 
-    <div class="m-4">
+    <div class="my-4">
         <a href="{{ route('tasks.create') }}"
             class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Add Task
