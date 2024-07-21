@@ -10,11 +10,17 @@
     @yield('styles')
 </head>
 
-<body>
-    <h2>@yield('title')</h2>
-    <div>
-        @yield('content')
-    </div>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+    <header class="w-full text-black p-4">
+        <h1 class="text-2xl font-bold text-center">Task List App</h1>
+    </header>
+
+    <main class="w-full max-w-4xl mt-8 p-4 bg-white rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">@yield('title')</h2>
+        <div class="space-y-4">
+            @yield('content')
+        </div>
+    </main>
 </body>
 
 </html>
